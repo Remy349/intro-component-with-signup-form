@@ -21,6 +21,7 @@ body {
   background-color: $Red;
   background-size: cover;
   background-repeat: no-repeat;
+  overflow-x: hidden;
 }
 
 .intro {
@@ -118,6 +119,90 @@ body {
         text-decoration: none;
         cursor: pointer;
         font-weight: 600;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 500px) {
+  body {
+    display: flex;
+    justify-content: center;
+  }
+
+  .intro {
+    max-width: 400px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .intro {
+    max-width: 500px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  body {
+    background-image: url(../images/bg-intro-desktop.png);
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .intro {
+    max-width: 1050px;
+    margin-top: 0;
+    margin-bottom: 0;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+
+    &__content {
+      display: grid;
+      align-content: center;
+
+      &-title {
+        text-align: left;
+        line-height: 1.2;
+        font-size: 2.8rem;
+      }
+
+      &-desc {
+        text-align: left;
+        font-size: .9rem;
+        line-height: 1.6;
+      }
+    }
+
+    &__forms {
+      row-gap: 1.2rem;
+
+      &-content {
+        padding: 1rem 4rem;
+
+        &_text {
+          font-size: .9rem;
+        }
+      }
+    }
+
+    &__form {
+      padding: 2.3rem;
+
+      &-input {
+        font-size: .8rem;
+        padding: 1rem 4rem 1rem 1.7rem;
+      }
+
+      &-submit {
+        font-size: .9rem;
+        font-weight: 600;
+        padding: .8rem 0;
+        box-shadow: 0 3px hsl(154deg 59% 40%);
+      }
+
+      &-terms {
+        font-size: .6rem;
       }
     }
   }
