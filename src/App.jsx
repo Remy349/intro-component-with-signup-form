@@ -55,8 +55,8 @@ class App extends React.Component {
                 Claim your free trial
               </button>
               <p className='intro__form-terms'>
-                By clicking the button, you are agreeing to our
-                <span>Terms and Services</span>
+                By clicking the button, you are agreeing to our{' '}
+                <a href='#'>Terms and Services</a>
               </p>
             </form>
           </div>
