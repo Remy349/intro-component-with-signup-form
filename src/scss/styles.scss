@@ -104,6 +104,10 @@ body {
 
       &.error {
         border: 2px solid $Red;
+
+        &::placeholder {
+          color: $Red;
+        }
       }
 
       &:focus {

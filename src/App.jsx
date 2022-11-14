@@ -11,6 +11,11 @@ class App extends React.Component {
       lastName: '',
       emailAddress: '',
       password: '',
+      errorFirstName: false,
+      errorLastName: false,
+      errorEmailAddress: false,
+      errorEmailAddressMessage: '',
+      errorPassword: false,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -27,8 +32,49 @@ class App extends React.Component {
     })
   }
 
+  formValidation() {
+    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+
+    if (this.state.firstName === '') {
+      this.setState({ errorFirstName: true })
+    } else {
+      this.setState({ errorFirstName: false })
+    }
+
+    if (this.state.lastName === '') {
+      this.setState({ errorLastName: true })
+    } else {
+      this.setState({ errorLastName: false })
+    }
+
+    if (this.state.emailAddress === '') {
+      this.setState({
+        errorEmailAddress: true,
+        errorEmailAddressMessage: 'empty',
+      })
+    } else if (!emailRegex.test(this.state.emailAddress)) {
+      this.setState({
+        errorEmailAddress: true,
+        errorEmailAddressMessage: 'invalid',
+      })
+    } else {
+      this.setState({
+        errorEmailAddress: false,
+        errorEmailAddressMessage: '',
+      })
+    }
+
+    if (this.state.password === '') {
+      this.setState({ errorPassword: true })
+    } else {
+      this.setState({ errorPassword: false })
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault()
+
+    this.formValidation()
   }
 
   render() {
@@ -48,73 +94,139 @@ class App extends React.Component {
               <div className='intro__form-container'>
                 <input
                   type='text'
-                  className='intro__form-input'
+                  className={
+                    this.state.errorFirstName
+                      ? 'intro__form-input error'
+                      : 'intro__form-input'
+                  }
                   autoComplete='off'
-                  placeholder='First Name'
+                  placeholder={this.state.errorFirstName ? '' : 'First Name'}
                   name='firstName'
                   onChange={this.handleInputChange}
                   value={this.state.firstName}
                 />
                 <img
-                  className='intro__form-icon show'
+                  className={
+                    this.state.errorFirstName
+                      ? 'intro__form-icon show'
+                      : 'intro__form-icon hide'
+                  }
                   src={iconError}
                   alt='Icon error'
                 />
-                <p className='intro__form-message show'>
+                <p
+                  className={
+                    this.state.errorFirstName
+                      ? 'intro__form-message show'
+                      : 'intro__form-message hide'
+                  }
+                >
                   First Name cannot be empty
                 </p>
               </div>
               <div className='intro__form-container'>
                 <input
                   type='text'
-                  className='intro__form-input'
+                  className={
+                    this.state.errorLastName
+                      ? 'intro__form-input error'
+                      : 'intro__form-input'
+                  }
                   autoComplete='off'
-                  placeholder='Last Name'
+                  placeholder={this.state.errorLastName ? '' : 'Last Name'}
                   name='lastName'
                   onChange={this.handleInputChange}
                   value={this.state.lastName}
                 />
                 <img
-                  className='intro__form-icon'
+                  className={
+                    this.state.errorLastName
+                      ? 'intro__form-icon show'
+                      : 'intro__form-icon hide'
+                  }
                   src={iconError}
                   alt='Icon error'
                 />
-                <p className='intro__form-message'>Last Name cannot be empty</p>
+                <p
+                  className={
+                    this.state.errorLastName
+                      ? 'intro__form-message show'
+                      : 'intro__form-message hide'
+                  }
+                >
+                  Last Name cannot be empty
+                </p>
               </div>
               <div className='intro__form-container'>
                 <input
                   type='text'
-                  className='intro__form-input'
+                  className={
+                    this.state.errorEmailAddress
+                      ? 'intro__form-input error'
+                      : 'intro__form-input'
+                  }
                   autoComplete='off'
-                  placeholder='Email Address'
+                  placeholder={
+                    this.state.errorEmailAddress
+                      ? 'email@example/com'
+                      : 'Email Address'
+                  }
                   name='emailAddress'
                   onChange={this.handleInputChange}
                   value={this.state.emailAddress}
                 />
                 <img
-                  className='intro__form-icon'
+                  className={
+                    this.state.errorEmailAddress
+                      ? 'intro__form-icon show'
+                      : 'intro__form-icon hide'
+                  }
                   src={iconError}
                   alt='Icon error'
                 />
-                <p className='intro__form-message'>
-                  Looks like this is not an email
+                <p
+                  className={
+                    this.state.errorEmailAddress
+                      ? 'intro__form-message show'
+                      : 'intro__form-message hide'
+                  }
+                >
+                  {this.state.errorEmailAddressMessage === 'empty'
+                    ? 'Email Address cannot be empty'
+                    : 'Looks like this is not an email'}
                 </p>
               </div>
               <div className='intro__form-container'>
                 <input
                   type='password'
-                  className='intro__form-input'
-                  placeholder='Password'
+                  className={
+                    this.state.errorPassword
+                      ? 'intro__form-input error'
+                      : 'intro__form-input'
+                  }
+                  placeholder={this.state.errorPassword ? '' : 'Password'}
                   name='password'
                   onChange={this.handleInputChange}
                   value={this.state.password}
                 />
                 <img
-                  className='intro__form-icon'
+                  className={
+                    this.state.errorPassword
+                      ? 'intro__form-icon show'
+                      : 'intro__form-icon hide'
+                  }
                   src={iconError}
                   alt='Icon error'
                 />
-                <p className='intro__form-message'>Password cannot be empty</p>
+                <p
+                  className={
+                    this.state.errorPassword
+                      ? 'intro__form-message show'
+                      : 'intro__form-message hide'
+                  }
+                >
+                  Password cannot be empty
+                </p>
               </div>
               <button className='intro__form-submit' type='submit'>
                 Claim your free trial
